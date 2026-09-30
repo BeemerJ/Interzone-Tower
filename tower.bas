@@ -1,4 +1,3 @@
-```basic
 ' ============================================
 ' INTERZØNE TØWER
 ' Original Java game ported to FreeBASIC
@@ -396,4 +395,3 @@ Else
     WaitSeconds(timeCinematic)
 
 End If
-```
