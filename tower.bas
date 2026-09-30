@@ -1,5 +1,5 @@
 ' ============================================
-' INTERZØNE TØWER
+' INTERZONE TOWER
 ' Original Java game ported to FreeBASIC
 ' ============================================
 
@@ -9,24 +9,23 @@ Randomize Timer
 ' FUNCTIONS
 ' --------------------------------------------
 
-Function RandomRange(minValue As Integer, maxExclusive As Integer) As Integer
+Function RandomRange(ByVal minValue As Integer, ByVal maxExclusive As Integer) As Integer
     Return Int(Rnd * (maxExclusive - minValue)) + minValue
 End Function
 
-Sub WaitSeconds(seconds As Integer)
+Sub WaitSeconds(ByVal seconds As Integer)
     Sleep seconds * 1000
 End Sub
-
 
 ' --------------------------------------------
 ' PLAYER NAME
 ' --------------------------------------------
 
-Dim As String name
+Dim As String playerName
 
 Print "Please enter a Name:"
-Input name
-name = UCase(name)
+Input playerName
+playerName = UCase(playerName)
 
 ' --------------------------------------------
 ' TIME INIT
@@ -42,7 +41,7 @@ WaitSeconds(timeSlow)
 ' --------------------------------------------
 
 Print "-----------------------------------"
-Print "I N T E R Z Ø  N E    T Ø W E R"
+Print "I N T E R Z O N E   T O W E R"
 Print "-----------------------------------"
 
 Print "You find a tall tower..."
@@ -65,7 +64,7 @@ Dim As Integer damBoundMin = 5
 ' CHEATS
 ' --------------------------------------------
 
-If name = "DANTE" Then
+If playerName = "DANTE" Then
 
     damMin = 99
     damMax = 150
@@ -76,7 +75,7 @@ If name = "DANTE" Then
 
     timeSlow = timeSlow \ 2
 
-ElseIf name = "TONBERRY" Then
+ElseIf playerName = "TONBERRY" Then
 
     timeSlow = timeSlow * 2
     damMax = damMax * 2
@@ -107,7 +106,9 @@ enemy(5) = "Scarab"
 ' MAIN TOWER LOOP
 ' --------------------------------------------
 
-For i As Integer = 0 To 8
+Dim As Integer i
+
+For i = 0 To 8
 
     Print "You enter Floor Number " & nFloor & "..."
 
@@ -259,7 +260,7 @@ For i As Integer = 0 To 8
         damMin = damMin + 25
         damMax = damMax + 50
 
-        damBound = damBound + 50 + ((enemyScale * nFloor) / 2)
+        damBound = damBound + 50 + Int((enemyScale * nFloor) / 2)
 
         If isEvolved Then
 
@@ -302,9 +303,9 @@ For i As Integer = 0 To 8
         ' ------------------------------------
 
         Print "-----------------------------------"
-        Print "You have fumbled your swing on Floor " & nFloor & " and got eaten by a " & enemy(nEnemy) & ", RIP " & name & "..."
+        Print "You have fumbled your swing on Floor " & nFloor & " and got eaten by a " & enemy(nEnemy) & ", RIP " & playerName & "..."
         Print "-----------------------------------"
-        Print "☠   ☠   ☠   ☠   ☠   ☠   ☠   ☠"
+        Print "X   X   X   X   X   X   X   X"
         Print "-----------------------------------"
 
         WaitSeconds(timeSlow)
@@ -314,7 +315,7 @@ For i As Integer = 0 To 8
 
         WaitSeconds(timeSlow)
 
-        Print "Game Over... Goodbye ☺"
+        Print "Game Over... Goodbye :)"
         Print "-----------------------------------"
 
         WaitSeconds(timeCinematic)
@@ -324,7 +325,6 @@ For i As Integer = 0 To 8
     End If
 
 Next i
-
 
 ' --------------------------------------------
 ' BOSS ENCOUNTER
@@ -348,17 +348,17 @@ WaitSeconds(timeCinematic)
 ' BOSS FIGHT
 ' --------------------------------------------
 
-Dim As Integer nDamage = RandomRange(damMin, damMax)
+Dim As Integer bossDamage = RandomRange(damMin, damMax)
 
-If nDamage >= (nDamage * 0.5) Then
+If bossDamage >= (bossDamage * 0.5) Then
 
-    Print "You deal " & nDamage & " damage to the " & enemyBoss(nBoss) & "..."
+    Print "You deal " & bossDamage & " damage to the " & enemyBoss(nBoss) & "..."
 
     WaitSeconds(timeCinematic)
 
 Else
 
-    Print "You do " & nDamage & " damage to the " & enemyBoss(nBoss) & ", you fear your journey is coming to an end..."
+    Print "You do " & bossDamage & " damage to the " & enemyBoss(nBoss) & ", you fear your journey is coming to an end..."
 
     WaitSeconds(timeCinematic)
 
@@ -368,7 +368,7 @@ End If
 ' BOSS RESULT
 ' --------------------------------------------
 
-If nDamage > bossHealth Then
+If bossDamage > bossHealth Then
 
     Print "You have slayed the " & enemyBoss(nBoss) & " and have conquered the Tower!"
 
@@ -377,9 +377,9 @@ If nDamage > bossHealth Then
 Else
 
     Print "-----------------------------------"
-    Print "You have fumbled your swing on Floor " & nFloor & " and got annihilated by a " & enemyBoss(nBoss) & ", RIP " & name & "..."
+    Print "You have fumbled your swing on Floor " & nFloor & " and got annihilated by a " & enemyBoss(nBoss) & ", RIP " & playerName & "..."
     Print "-----------------------------------"
-    Print "☠   ☠   ☠   ☠   ☠   ☠   ☠   ☠"
+    Print "X   X   X   X   X   X   X   X"
     Print "-----------------------------------"
 
     WaitSeconds(timeSlow)
@@ -389,7 +389,7 @@ Else
 
     WaitSeconds(timeSlow)
 
-    Print "Game Over... Goodbye ☺"
+    Print "Game Over... Goodbye :)"
     Print "-----------------------------------"
 
     WaitSeconds(timeCinematic)
